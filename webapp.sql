@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `knowledge` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `desc` varchar(255) NOT NULL,
-  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `datecreated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `userid` int(11) DEFAULT '0',
   `topicid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `topic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `desc` varchar(255) DEFAULT NULL,
-  `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `datecreated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `userid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=63 ;
