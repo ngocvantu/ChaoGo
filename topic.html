@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <title>topic</title>
+    <style type="text/css">
+        *{
+            border-radius: 0px !important;
+        }
+
+        a.nav-link {color:#FFFFFF;}
+
+        tr, th, td {
+            padding-top: .25rem !important;
+            padding-bottom: 0.15rem !important;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md py-0" style="background-color: #46b149; ">
+    <a href="/" class="navbar-brand" ><img  src="public/logo.png" height="30" alt="logo"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse " id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link"   href="/topic">Topic</a>
+            </li>
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Knowledge</a>
+                <div class="dropdown-menu mt-0" aria-labelledby="dropdown01">
+                {{range $index, $value := .TopicSlice}}
+                    <a class="dropdown-item" href="/knowledge?topic={{.Id}}">{{.Name}}</a>
+                {{end}}
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2 py-0 px-1 " type="text" placeholder="Search..." aria-label="Search">
+            <button class="btn btn-warning my-2 my-sm-0 py-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="container text-center"><h2>Topic</h2></div>
+
+<div class="container-fluid my-1 mx-auto">
+    <div class="row">
+        <div class="col-lg-10 col-md-12">
+        <form class="form-inline" method="post" action="/topic" >
+            <h5>Add topic:</h5>
+            <input name="tname" class="form-control is-valid py-1 px-1 ml-1" type="text" placeholder="Topic name" autofocus>
+            <input name="tdesc" class="form-control is-valid py-1 px-1 ml-1" type="text" placeholder="Topic Description">
+            <button class=" btn btn-success  my-sm-0 py-1 ml-1" type="submit">  Add  </button>
+        </form>
+        </div>
+        <div class="col-lg-2">
+            <input class="form-control is-valid py-1 px-1 mr-auto" type="text" id="myInput" onkeyup="myFunction()" placeholder="search in table">
+        </div>
+    </div>
+
+</div>
+
+<div class="container-fluid mt-20 ">
+    <div class="row " >
+
+
+    </div>
+
+    <div class="row" >
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead >
+            <tr class="table-success">
+                <th scope="col">Topic name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date created</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $index, $value := .TopicSlice}}
+                <tr >
+                    <th class="align-middle" scope="row" style="width: 25%;" >{{.Name}}</th>
+                    <td class="align-middle" style="width: 35%;" >{{.Desc.String}}</td>
+                    <td class="align-middle"  >{{.Date}}</td>
+                    <td align="center" class="align-middle" style="width: 170px;" >
+                        <a href="/delete?topicid={{.Id}}" class="btn btn-info btn-sm mx-0 " >
+                            <img src="public/delete.png" alt="delete">
+                            Delete
+                        </a>
+                        <a   class="btn btn-info btn-sm mx-0 " data-toggle="modal" data-target="#exampleModal" onclick="changeTopicId({{.Id}}, {{.Name}}, {{.Desc.String}})" >
+                            <img src="public/edit.png" alt="edit">
+                             Edit
+                        </a>
+                    </td>
+                </tr>
+             {{end}}
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div><!-- /.container -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit topic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="form-inline" method="post" action="/edittopic" >
+            <div class="modal-body text-center">
+                <input name="tid"   id="tid" type="hidden">
+                <input name="tname" id="tname" class="form-control is-valid py-1 px-1 ml-1" type="text" placeholder="Topic name" autofocus>
+                <input name="tdesc" id="tdesc" class="form-control is-valid py-1 px-1 ml-1" type="text" placeholder="Topic Description">
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+    function changeTopicId(id, name, desc){
+        inputTopicId = document.getElementById("tid")
+        inputTopicId.value = id
+
+        document.getElementById("tname").value=name
+        document.getElementById("tdesc").value=desc
+    }
+
+    function myFunction() {
+        var input, filter, table, tr, th, td1, td2, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 1; i < tr.length; i++) {
+            th = tr[i].getElementsByTagName("th")[0];
+            td1 = tr[i].getElementsByTagName("td")[0];
+            td2 = tr[i].getElementsByTagName("td")[1];
+            if (th && td1 && td2) {
+                if (th.innerHTML.toUpperCase().indexOf(filter) > -1 ||
+                        td1.innerHTML.toUpperCase().indexOf(filter) > -1 ||
+                        td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+        }
+    }
+</script>
+</body>
+</html>

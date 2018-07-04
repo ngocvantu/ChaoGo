@@ -1,0 +1,48 @@
+package main
+
+import (
+	"fmt"
+	"time"
+	"regexp"
+	"strings"
+)
+
+func friendlyURL(str string) string{
+	str = strings.TrimSpace(str)
+	str = regexp.MustCompile("[àáạảãâầấậẩẫăằắặẳẵ]").ReplaceAllString(str,  "a");
+	str = regexp.MustCompile("[èéẹẻẽêềếệểễ]").ReplaceAllString(str,  "e");
+	str = regexp.MustCompile("[ìíịỉĩ]").ReplaceAllString(str,  "i");
+	str = regexp.MustCompile("[òóọỏõôồốộổỗơờớợởỡ]").ReplaceAllString(str,  "o");
+	str = regexp.MustCompile("[ùúụủũưừứựửữ]").ReplaceAllString(str,  "u");
+	str = regexp.MustCompile("[ỳýỵỷỹ]").ReplaceAllString(str,  "y");
+	str = regexp.MustCompile("[đ]").ReplaceAllString(str,  "d");
+	str = regexp.MustCompile("[ÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴ]").ReplaceAllString(str,  "A");
+	str = regexp.MustCompile("[ÈÉẸẺẼÊỀẾỆỂỄ]").ReplaceAllString(str,  "E");
+	str = regexp.MustCompile("[ÌÍỊỈĨ]").ReplaceAllString(str,  "I");
+	str = regexp.MustCompile("[ÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠ]").ReplaceAllString(str,  "O");
+	str = regexp.MustCompile("[ÙÚỤỦŨƯỪỨỰỬỮ]").ReplaceAllString(str,  "U");
+	str = regexp.MustCompile("[ỲÝỴỶỸ]").ReplaceAllString(str,  "Y");
+	str = regexp.MustCompile("[Đ]").ReplaceAllString(str,  "D");
+
+	str = regexp.MustCompile(`[^0-9a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\s]`).ReplaceAllString(str,  "");
+	str = regexp.MustCompile(`!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|-|{|}|\||\\`).ReplaceAllString(str,  " ");
+	str = regexp.MustCompile(" + ").ReplaceAllString(str,  "-");
+	str = regexp.MustCompile(" ").ReplaceAllString(str,  "-");
+
+	return strings.Trim(str, "-")
+}
+ 
+func main() {
+	ellapse := time.Since(time.Now())
+
+	str := "          khóa học công nghệ thông tin *`!>/\\?:;"
+	fmt.Println(friendlyURL(str))
+	str = " sử dụng wordpress"
+	fmt.Println(friendlyURL(str))
+	str = "       cài đặt server "
+	fmt.Println(friendlyURL(str))
+	str = "    kỳ thi quốc THPT quốc gia"
+	fmt.Println(friendlyURL(str))
+
+	fmt.Println("time: ", ellapse)
+}
