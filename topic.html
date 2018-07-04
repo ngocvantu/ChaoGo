@@ -84,7 +84,9 @@
             <tbody>
             {{range $index, $value := .TopicSlice}}
                 <tr >
-                    <th class="align-middle" scope="row" style="width: 25%;" >{{.Name}}</th>
+                    <th class="align-middle" scope="row" style="width: 25%;" >
+                        <a href="/knowledge?topic={{.Id}}">{{.Name}}</a>
+                    </th>
                     <td class="align-middle" style="width: 35%;" >{{.Desc.String}}</td>
                     <td class="align-middle"  >{{.Date}}</td>
                     <td align="center" class="align-middle" style="width: 170px;" >
