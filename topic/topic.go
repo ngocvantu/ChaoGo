@@ -91,8 +91,8 @@ func DeleteTopic(w http.ResponseWriter, r *http.Request){
 
 	tx, err := db.Begin()
 	checkErr(err)
-
-	_, er := tx.Exec("delete from topic where id=?",key[0])
+	_, er := tx.Exec("delete from knowledge where topicid=?",key[0])
+	_, er = tx.Exec("delete from topic where id=?",key[0])
 	checkErr(er)
 
 	tx.Commit()
