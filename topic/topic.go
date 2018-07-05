@@ -13,6 +13,8 @@ import (
 	"strings"
 )
 
+
+var store =db2.Store
 var db  = db2.DB
 
 type Topic struct {
@@ -25,6 +27,7 @@ type Topic struct {
 
 type TopicParams struct {
 	TopicSlice []Topic
+	Email string
 }
 
 func GetTopics(topicId string) ([]Topic,  string  ){
@@ -52,9 +55,16 @@ func GetTopics(topicId string) ([]Topic,  string  ){
 func TopicController(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "GET" {
-		topicParam := &TopicParams{}
+		session, _ :=  store.Get(r, "user-session")
+		var email = "Login"
 
+		if session.Values["email"] != nil {
+			email = session.Values["email"].(string)
+		}
+
+		topicParam := &TopicParams{}
 		topicParam.TopicSlice, _ = GetTopics("")
+		topicParam.Email = email
 		var t, err = template.ParseFiles("topic.html")
 		checkErr(err)
 		t.Execute(w, topicParam)
