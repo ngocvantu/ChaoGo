@@ -38,7 +38,13 @@ func sendMail(email string) {
 	msg := "From: hoconline team asdfa\n" +
 		"To: " + email + "\n" +
 		"Subject: This is a subject" + "\n\n" +
-		"Chao ban, check your"
+		"<html>" +
+		"<head>" + "<meta name=\"viewport\" content=\"width=device-width\"/>" +
+		"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" +
+		"<title>Subscribe To My Blog - M.Labouardy</title>" +
+		"<body style=\"color: red\"> <h1> chao ban </h1></body>"+
+		"</head>" +
+		"</html>"
 
 	err := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, pass, "smtp.gmail.com"),from, []string{to}, []byte(msg))
 	if err != nil {
