@@ -36,12 +36,7 @@ func sendMail(email string) {
 	pass := "Thongtinaz@12"
 	to := email
 
-	msg1 :=`From: hoc team online
-To: tunguyen
-Subject: Check login activity
-
-`
-msg2 := `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	msg2 := `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta name="viewport" content="width=device-width"/>
@@ -140,9 +135,11 @@ msg2 := `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 	buff := new(bytes.Buffer)
 	_ = t.Execute(buff, nil)
 
-	msg := msg1 + buff.String()
+	msg := buff.String()
+	MIME := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+	body := "From: my team" + "To: " + "customer" + "\r\nSubject: " + "xin chao" + "\r\n" + MIME + "\r\n" + msg
 
-	err := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, pass, "smtp.gmail.com"),from, []string{to}, []byte(msg))
+	err := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, pass, "smtp.gmail.com"),from, []string{to}, []byte(body))
 	if err != nil {
 		panic(err)
 		return
