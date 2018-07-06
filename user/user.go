@@ -35,7 +35,10 @@ func sendMail(email string) {
 	pass := "Thongtinaz@12"
 	to := email
 
-	msg := "ban vua login"
+	msg := "From: tunguyen.sinhvien@gmail.com\n" +
+		"To: " + email + "\n" +
+		"Subject: This is a subject" + "\n\n" +
+		"Chao ban, ban vuaa dang nhap"
 
 	err := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, pass, "smtp.gmail.com"),from, []string{to}, []byte(msg))
 	if err != nil {
