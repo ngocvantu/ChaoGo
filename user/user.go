@@ -3,7 +3,7 @@ package user
 import (
 	"ChaoGo/db"
 	"net/http"
-	"text/template"
+	"html/template"
 	"strings"
 	"net/smtp"
 	"fmt"
@@ -36,11 +36,12 @@ func sendMail(email string) {
 	pass := "Thongtinaz@12"
 	to := email
 
-	msg :=`From: hoc team online
+	msg1 :=`From: hoc team online
 To: tunguyen
 Subject: Check login activity
 
-` + `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+`
+msg2 := `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta name="viewport" content="width=device-width"/>
@@ -135,11 +136,13 @@ Subject: Check login activity
   </body>
 </html>`
 
-	t, _ :=template.New("t1").Parse(msg)
+	t, _ :=template.New("t1").Parse(msg2)
 	buff := new(bytes.Buffer)
 	_ = t.Execute(buff, nil)
 
-	err := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, pass, "smtp.gmail.com"),from, []string{to}, []byte(buff.String()))
+	msg := msg1 + buff.String()
+
+	err := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, pass, "smtp.gmail.com"),from, []string{to}, []byte(msg))
 	if err != nil {
 		panic(err)
 		return
