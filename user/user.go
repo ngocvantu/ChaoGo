@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"html/template"
 	"strings"
+	"net/smtp"
+	"fmt"
 )
 
 var store = db.Store
@@ -21,12 +23,27 @@ func LoginController(w http.ResponseWriter, r *http.Request) {
 			session.Options.HttpOnly = true
 			session.Options.MaxAge = 300
 			session.Save(r, w)
-
+			sendMail(email)
 			http.Redirect(w,r,"/topic",http.StatusFound)
 		} else {
 			http.Redirect(w,r,"/login",http.StatusFound)
 		}
 	}
+}
+func sendMail(email string) {
+	from := "tunguyen.sinhvien@gmail.com"
+	pass := "Thongtinaz@12"
+	to := email
+
+	msg := "ban vua login"
+
+	err := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, pass, "smtp.gmail.com"),from, []string{to}, []byte(msg))
+	if err != nil {
+		panic(err)
+		return
+	}
+
+	fmt.Println("sent email to", email, "from", from)
 }
 
 func LogoutController(w http.ResponseWriter, r *http.Request){
