@@ -3,10 +3,11 @@ package user
 import (
 	"ChaoGo/db"
 	"net/http"
-	"html/template"
+	"text/template"
 	"strings"
 	"net/smtp"
 	"fmt"
+	"bytes"
 )
 
 var store = db.Store
@@ -46,7 +47,11 @@ func sendMail(email string) {
 		"</head>" +
 		"</html>"
 
-	err := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, pass, "smtp.gmail.com"),from, []string{to}, []byte(msg))
+	t, _ :=template.New("t1").Parse(msg)
+	buff := new(bytes.Buffer)
+	_ = t.Execute(buff, nil)
+
+	err := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, pass, "smtp.gmail.com"),from, []string{to}, []byte(buff.String()))
 	if err != nil {
 		panic(err)
 		return
