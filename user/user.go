@@ -35,7 +35,7 @@ func sendMail(email string) {
 	pass := "Thongtinaz@12"
 	to := email
 
-	msg := "From: hoconline&nbsp;team asdfa\n" +
+	msg := "From: hoconline team asdfa\n" +
 		"To: " + email + "\n" +
 		"Subject: This is a subject" + "\n\n" +
 		"Chao ban, check your"
