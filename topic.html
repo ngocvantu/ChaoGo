@@ -91,11 +91,11 @@
                     <td class="align-middle" style="width: 35%;" >{{.Desc.String}}</td>
                     <td class="align-middle"  >{{.Date}}</td>
                     <td align="center" class="align-middle" style="width: 170px;" >
-                        <a href="/delete?topicid={{.Id}}" class="btn btn-info btn-sm mx-0 " >
+                        <a href="#" class="btn btn-info btn-sm mx-0 " onclick="deleteTopic({{.Id}})" >
                             <img src="public/delete.png" alt="delete">
                             Delete
                         </a>
-                        <a   class="btn btn-info btn-sm mx-0 " data-toggle="modal" data-target="#exampleModal" onclick="changeTopicId({{.Id}}, {{.Name}}, {{.Desc.String}})" >
+                        <a  href="#" class="btn btn-info btn-sm mx-0 " data-toggle="modal" data-target="#exampleModal" onclick="changeTopicId({{.Id}}, {{.Name}}, {{.Desc.String}})" >
                             <img src="public/edit.png" alt="edit">
                              Edit
                         </a>
@@ -138,6 +138,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <script>
+
+    function deleteTopic(topicId) {
+        if (confirm("Delete?!")) {
+            window.location.href= "http://localhost:8081/delete?topicid=" + topicId
+        }
+    }
+
     function changeTopicId(id, name, desc){
         inputTopicId = document.getElementById("tid")
         inputTopicId.value = id
@@ -147,6 +154,7 @@
     }
 
     function myFunction() {
+
         var input, filter, table, tr, th, td1, td2, i;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
@@ -157,9 +165,9 @@
             td1 = tr[i].getElementsByTagName("td")[0];
             td2 = tr[i].getElementsByTagName("td")[1];
             if (th && td1 && td2) {
-                if (th.innerHTML.toUpperCase().indexOf(filter) > -1 ||
-                        td1.innerHTML.toUpperCase().indexOf(filter) > -1 ||
-                        td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                if (th.innerText.toUpperCase().indexOf(filter) > -1 ||
+                        td1.innerText.toUpperCase().indexOf(filter) > -1 ||
+                        td2.innerText.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";

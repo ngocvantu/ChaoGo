@@ -161,9 +161,9 @@
             td1 = tr[i].getElementsByTagName("td")[0];
             td2 = tr[i].getElementsByTagName("td")[1];
             if (th && td1 && td2) {
-                if (th.innerHTML.toUpperCase().indexOf(filter) > -1 ||
-                        td1.innerHTML.toUpperCase().indexOf(filter) > -1 ||
-                        td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                if (th.innerText.toUpperCase().indexOf(filter) > -1 ||
+                        td1.innerText.toUpperCase().indexOf(filter) > -1 ||
+                        td2.innerText.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
