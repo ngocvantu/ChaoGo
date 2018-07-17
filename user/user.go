@@ -138,7 +138,7 @@ func sendMail(email string) {
 	msg := buff.String()
 	MIME := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
 	body := "From: my team" + "To: " + "customer" + "\r\nSubject: " + "xin chao" + "\r\n" + MIME + "\r\n" + msg
-	if 1 == 0 {
+	if 1 == 1 {
 		err := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, pass, "smtp.gmail.com"),from, []string{to}, []byte(body))
 		if err != nil {
 			panic(err)

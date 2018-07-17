@@ -89,9 +89,15 @@ func Deleteknowledge(w http.ResponseWriter, r *http.Request){
 
 func KnowledgeController(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
+
+		funcMap := template.FuncMap{
+			"startWith": strings.HasPrefix,
+		}
+
+
 		topicId := r.URL.Query()["topic"][0]
 
-		var t, err = template.ParseFiles("knowledge.html")
+		var t, err = template.New("knowledge.html").Funcs(funcMap).ParseFiles("knowledge.html")
 		checkErr(err)
 
 		knowledgeParams := &KnowledgeParams{}
@@ -99,7 +105,10 @@ func KnowledgeController(w http.ResponseWriter, r *http.Request) {
 		knowledgeParams.KnowledgeSlice = GetKnowledge(topicId)
 		knowledgeParams.TopicId = topicId
 
-		t.Execute(w,knowledgeParams)
+		err = t.Execute(w,knowledgeParams)
+		if err != nil {
+			panic(err)
+		}
 	} else {
 		err := r.ParseForm()
 		checkErr(err)

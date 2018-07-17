@@ -88,7 +88,11 @@
             {{range $index, $value := .KnowledgeSlice}}
                 <tr >
                     <th class="align-middle" scope="row" style="width: 25%;" >{{.Name}}</th>
-                    <td class="align-middle" style="width: 35%;" >{{.Desc.String}}</td>
+                    {{if or (startWith .Desc.String  "https") (startWith .Desc.String  "http")}}
+                        <td class="align-middle" style="width: 35%;" ><a target="_blank" href="{{.Desc.String}}">{{.Desc.String}}</a></td>
+                    {{else}}
+                        <td class="align-middle" style="width: 35%;" >{{.Desc.String}}</td>
+                    {{end}}
                     <td class="align-middle"  >{{.Date}}</td>
                     <td align="center" class="align-middle" style="width: 170px;" >
                         <a href="/deleteknowledge?knowledgeid={{.Id}}&topic={{.TopicId}}" class="btn btn-info btn-sm mx-0 " >
