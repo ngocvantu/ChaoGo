@@ -81,7 +81,7 @@ func Deleteknowledge(w http.ResponseWriter, r *http.Request){
 	tx, err := db.Begin()
 	checkErr(err)
 
-	_, er := tx.Exec("delete from knowledge where id=? and topicid = ?", -1,topicIdStr[0]) // change -1 to knowledgeIdStr[0]
+	_, er := tx.Exec("delete from knowledge where id=? and topicid = ?", knowledgeIdStr[0],topicIdStr[0]) // change -1 to knowledgeIdStr[0]
 	checkErr(er)
 
 	tx.Commit()
