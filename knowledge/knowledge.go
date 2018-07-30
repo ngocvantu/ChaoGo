@@ -27,7 +27,7 @@ type KnowledgeParams struct {
 	TopicSlice []topic.Topic
 	KnowledgeSlice []Knowledge
 	Title string
-	TopicId string
+	TopicId int
 }
 
 func GetKnowledge(topicId string)  ([]Knowledge) {
@@ -54,11 +54,13 @@ func EditKnowledge(w http.ResponseWriter, r *http.Request){
 	knowledgename := strings.TrimSpace(r.FormValue("kname"))
 	knowledgeDesc := strings.TrimSpace(r.FormValue("kdesc"))
 
+	tid := strings.TrimSpace(r.FormValue("tid"))
+
 	if len(knowledgeId) > 0 && len(knowledgename) > 0 && len (knowledgeDesc) > 0{
 		tx, err := db.Begin()
 		checkErr(err)
 		i, err := strconv.Atoi(knowledgeId)
-		_, err = tx.Exec("update knowledge set `name` = ? , `desc` = ? where id = ?", knowledgename, knowledgeDesc, i)
+		_, err = tx.Exec("update knowledge set `name` = ? , `desc` = ?, `topicid` = ? where id = ?", knowledgename, knowledgeDesc, tid, i)
 		checkErr(err)
 		tx.Commit()
 		http.Redirect(w,r,"/knowledge?topic=" + topicIdStr,http.StatusFound)
@@ -79,7 +81,7 @@ func Deleteknowledge(w http.ResponseWriter, r *http.Request){
 	tx, err := db.Begin()
 	checkErr(err)
 
-	_, er := tx.Exec("delete from knowledge where id=? and topicid = ?",knowledgeIdStr[0],topicIdStr[0])
+	_, er := tx.Exec("delete from knowledge where id=? and topicid = ?", -1,topicIdStr[0]) // change -1 to knowledgeIdStr[0]
 	checkErr(er)
 
 	tx.Commit()
@@ -103,7 +105,7 @@ func KnowledgeController(w http.ResponseWriter, r *http.Request) {
 		knowledgeParams := &KnowledgeParams{}
 		knowledgeParams.TopicSlice, knowledgeParams.Title = topic.GetTopics(topicId)
 		knowledgeParams.KnowledgeSlice = GetKnowledge(topicId)
-		knowledgeParams.TopicId = topicId
+		knowledgeParams.TopicId, _ = strconv.Atoi(topicId)
 
 		err = t.Execute(w,knowledgeParams)
 		if err != nil {

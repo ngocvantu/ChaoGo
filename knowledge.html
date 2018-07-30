@@ -127,6 +127,16 @@
                 <input name="kid"   id="kid" type="hidden">
                 <input name="kname" id="kname" class="form-control is-valid py-1 px-1 ml-1" type="text" placeholder="Topic name" autofocus>
                 <input name="kdesc" id="kdesc" class="form-control is-valid py-1 px-1 ml-1" type="text" placeholder="Topic Description">
+                <select id="tid" name="tid" class="form-control mt-1">
+                    <option selected>Choose...</option>
+                    {{range $index, $value := .TopicSlice}}
+                        <option value="{{.Id}}"
+                            {{if eq .Id $.TopicId}}
+                                selected
+                            {{end}}
+                        >{{.Name}}</option>
+                    {{end}}
+                </select>
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
