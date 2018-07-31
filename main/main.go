@@ -10,7 +10,7 @@ import (
 	"ChaoGo/db"
 	"ChaoGo/user"
 	"ChaoGo/middleware"
-	"log"
+	"fmt"
 )
 
 var store = db.Store
@@ -53,7 +53,7 @@ func main() {
 
 	//http.ListenAndServe(":8081",context.ClearHandler(http.DefaultServeMux))
 	err := http.ListenAndServeTLS(":8081", "cert.pem", "key.pem", context.ClearHandler(http.DefaultServeMux))
-	log.Fatal(err)
+	fmt.Println(err.Error())
 }
 func checkErr(e error) {
 	if e != nil {
