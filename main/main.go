@@ -52,7 +52,7 @@ func main() {
 
 
 	//http.ListenAndServe(":8081",context.ClearHandler(http.DefaultServeMux))
-	err := http.ListenAndServeTLS(":8081", "cert.pem", "key.pem", context.ClearHandler(http.DefaultServeMux))
+	err := http.ListenAndServeTLS(":8081", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 	fmt.Println(err.Error())
 }
 func checkErr(e error) {
