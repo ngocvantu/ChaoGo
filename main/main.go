@@ -55,7 +55,7 @@ func main() {
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
-	go http.ListenAndServeTLS(":80", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
+	go http.ListenAndServeTLS(":", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 
 	err := http.ListenAndServe(":8081", http.HandlerFunc(redirectToHttps))
 	fmt.Print(err)
