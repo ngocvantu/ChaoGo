@@ -49,7 +49,7 @@ func main() {
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
-	http.ListenAndServeTLS(":80", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
+	http.ListenAndServeTLS("0.0.0.0:80", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 
 }
 func checkErr(e error) {
