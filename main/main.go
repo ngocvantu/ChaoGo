@@ -57,7 +57,7 @@ func main() {
 
 	go http.ListenAndServeTLS(":8081", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 
-	err := http.ListenAndServe(":8081",context.ClearHandler(http.HandlerFunc(redirectToHttps)))
+	err := http.ListenAndServe(":8081", http.HandlerFunc(redirectToHttps))
 	fmt.Print(err)
 }
 func checkErr(e error) {
