@@ -34,6 +34,11 @@ func IndexController(w http.ResponseWriter, r *http.Request){
 	t.Execute(w,commonParam)
 }
 
+func redirectToHttps(w http.ResponseWriter, r *http.Request) {
+	// Redirect the incoming HTTP request. Note that "127.0.0.1:8081" will only work if you are accessing the server from your local machine.
+	http.Redirect(w, r, "https://tunguyen.top:8081"+r.RequestURI, http.StatusMovedPermanently)
+}
+
 func main() {
 	http.HandleFunc("/", IndexController)
 
@@ -51,7 +56,7 @@ func main() {
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
 
-	//http.ListenAndServe(":8081",context.ClearHandler(http.DefaultServeMux))
+	http.ListenAndServe(":8081",context.ClearHandler(http.HandlerFunc(redirectToHttps)))
 	err := http.ListenAndServeTLS(":8081", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 	fmt.Println(err.Error())
 }
