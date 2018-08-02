@@ -56,9 +56,10 @@ func main() {
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
 
-	http.ListenAndServe(":8081",context.ClearHandler(http.HandlerFunc(redirectToHttps)))
+	err1 := http.ListenAndServe(":8081",context.ClearHandler(http.HandlerFunc(redirectToHttps)))
 	err := http.ListenAndServeTLS(":8081", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 	fmt.Println(err.Error())
+	fmt.Println(err1.Error())
 }
 func checkErr(e error) {
 	if e != nil {
