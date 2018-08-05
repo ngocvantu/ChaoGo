@@ -52,7 +52,7 @@ func main() {
 
 	//e := http.ListenAndServe(":80", context.ClearHandler(http.DefaultServeMux))
 
-	e := http.ListenAndServeTLS(":80", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
+	e := http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 	if e != nil {
 		fmt.Println(e)
 	}
