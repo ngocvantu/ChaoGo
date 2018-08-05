@@ -50,12 +50,12 @@ func main() {
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
-	e := http.ListenAndServe(":80", context.ClearHandler(http.DefaultServeMux))
+	//e := http.ListenAndServe(":80", context.ClearHandler(http.DefaultServeMux))
+
+	e := http.ListenAndServeTLS(":80", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 	if e != nil {
 		fmt.Println(e)
 	}
-	//http.ListenAndServeTLS(":80", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
-
 }
 func checkErr(e error) {
 	if e != nil {
