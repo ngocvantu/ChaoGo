@@ -50,7 +50,7 @@ func main() {
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
-	e := http.ListenAndServe("localhost:80", context.ClearHandler(http.DefaultServeMux))
+	e := http.ListenAndServe(":80", context.ClearHandler(http.DefaultServeMux))
 	if e != nil {
 		fmt.Println(e)
 	}
