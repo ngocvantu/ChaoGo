@@ -31,7 +31,7 @@ type TopicParams struct {
 }
 
 func GetTopics(topicId string) ([]Topic,  string  ){
-	res, er := db.Query("select id, name, desc, datecreated, userid from topic order by name asc ")
+	res, er := db.Query("select `id`, `name`, `desc`, `datecreated`, `userid` from topic order by name asc ")
 
 	tid, _ := strconv.Atoi(topicId)
 
