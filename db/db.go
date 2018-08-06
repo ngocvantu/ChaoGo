@@ -6,5 +6,5 @@ import ("database/sql"
  "github.com/gorilla/securecookie"
 )
 
-var DB, errglobal = sql.Open("mysql", "root:@tcp(45.32.118.97:3306)/webapp")
+var DB, errglobal = sql.Open("mysql", "root:root@tcp(45.32.118.97:3306)/webapp")
 var Store = sessions.NewCookieStore(securecookie.GenerateRandomKey(64))
