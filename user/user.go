@@ -22,7 +22,7 @@ func LoginController(w http.ResponseWriter, r *http.Request) {
 			session, _ :=  store.Get(r, "user-session")
 			session.Values["email"] = email
 			session.Options.HttpOnly = true
-			session.Options.MaxAge = 300
+			session.Options.MaxAge = 30000
 			session.Save(r, w)
 			sendMail(email)
 			http.Redirect(w,r,"/topic",http.StatusFound)
