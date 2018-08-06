@@ -10,7 +10,6 @@ import (
 	"ChaoGo/user"
 	"ChaoGo/middleware"
 	"github.com/gorilla/context"
-	"fmt"
 )
 
 var store = db.Store
@@ -57,10 +56,8 @@ func main() {
 
 	go http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
 
-	e := http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
-	if e != nil {
-		fmt.Println(e)
-	}
+	http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
+
 }
 func checkErr(e error) {
 	if e != nil {
