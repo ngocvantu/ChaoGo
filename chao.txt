@@ -1,7 +1,4 @@
 
 create chao kha kha
-<<<<<<< HEAD
-mamama
-=======
- sdfgsdfgsdfg
->>>>>>> c0eb4438a951fd8e7792b9bc19f6457be2824f96
+mama
+ sdfgsdfgsdf
