@@ -1,4 +1,1 @@
-
-create chao kha kha
-mama
- sdfgsdfgsdf
+test auto pull command
