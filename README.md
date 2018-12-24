@@ -1,4 +1,2 @@
 # ChaoGo
-golang remembering webapp
-
-lkjasdhlkajdf
+golang remembering webap
