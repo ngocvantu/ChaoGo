@@ -2,6 +2,8 @@ test auto pull commad
 
 chao
 
-kha kha
+kha kha 
+
+mama
 
 
