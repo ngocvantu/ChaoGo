@@ -1,4 +1,4 @@
 # ChaoGo
 golang remembering webapp
 
-khong bao
+khong bao asdfasdfasdf
