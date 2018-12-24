@@ -1,4 +1,4 @@
 # ChaoGo
-golang remembering web
-haha
+golang remembering webapp
 
+dau co gi hay dau
