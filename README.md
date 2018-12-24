@@ -1,4 +1,4 @@
 # ChaoGo
 golang remembering web
 
-test auto commit crontab
+remove test auto commit crontab
