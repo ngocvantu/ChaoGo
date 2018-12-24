@@ -1,5 +1,2 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> 47b6a07089b4b7fe047f89f6272980f895d418c8
 create chao kha kha
