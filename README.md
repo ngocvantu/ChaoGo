@@ -1,4 +1,4 @@
 # ChaoGo
 golang remembering web
 
-chao nhe
+test auto commit crontab
