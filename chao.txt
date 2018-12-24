@@ -1,5 +1,2 @@
-<<<<<<< HEAD
-create chao asdlf asdfl
-=======
+
 create chao kha kha
->>>>>>> 062a59529ce7a13e97915a8fb374b178dbb6fd06
