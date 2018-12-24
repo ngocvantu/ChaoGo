@@ -1,6 +1,4 @@
 # ChaoGo
-golang remembering webapp
+golang remembering web
 
-khong bao gio bo tay
-
-ke ma no di may
+test auto commit crontab append >/dev/null 2>&1 to cront comman
