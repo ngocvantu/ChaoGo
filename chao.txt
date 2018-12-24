@@ -1,1 +1,4 @@
 test auto pull command
+
+
+test clear log
