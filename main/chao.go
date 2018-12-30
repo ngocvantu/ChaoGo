@@ -1,3 +1,3 @@
-package "fmt"
+import "fmt"
 
-fmt.print("chao")
+fmt.Print("chao")
