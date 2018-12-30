@@ -1,3 +1,7 @@
+package main
 import "fmt"
 
-fmt.Print("chao")
+func main(){
+
+	fmt.Print("chao")
+}
