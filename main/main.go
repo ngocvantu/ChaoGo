@@ -53,16 +53,14 @@ func main() {
 	http.HandleFunc("/deleteknowledge", middleware.CheckLogin(knowledge.Deleteknowledge))
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
+ 
+	go http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
 
-	http.ListenAndServe(":80", http.HandlerFunc(redirectToHttps))
-//	go http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
-
-//	http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
+	http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 
 }
 func checkErr(e error) {
 	if e != nil {
-		panic(e)
-		fmt.Println(e)	
+		panic(e) 
 	}
 }
