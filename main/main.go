@@ -21,8 +21,8 @@ type CommonParams struct {
 
 
 func IndexController(w http.ResponseWriter, r *http.Request){
-	session, _ := store.Get(r, "session-name")
-
+	session, e := store.Get(r, "session-name")
+	checkErr(e)
 	var t, err = template.ParseFiles("index.html")
 	commonParam := &CommonParams{Title:"index"}
 	commonParam.Topic,_ = topic.GetTopics("")
@@ -63,5 +63,6 @@ func main() {
 func checkErr(e error) {
 	if e != nil {
 		panic(e) 
+		
 	}
 }
