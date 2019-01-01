@@ -54,7 +54,10 @@ func main() {
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
   
-	http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
+	
+	if err := http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps))); err != nil {
+    		panic(err)
+  	}
 // 	go http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
 
 // 	http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
