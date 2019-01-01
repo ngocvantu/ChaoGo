@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/context"
 )
 
-var store = db.Store
+// var store = db.Store
 
 type CommonParams struct {
 	Topic []topic.Topic
@@ -53,10 +53,11 @@ func main() {
 // 	http.HandleFunc("/deleteknowledge", middleware.CheckLogin(knowledge.Deleteknowledge))
 
 // 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
- 
+  
+	http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
 // 	go http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
 
-	http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
+// 	http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 
 }
 func checkErr(e error) {
