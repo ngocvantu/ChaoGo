@@ -6,13 +6,13 @@ import (
 	"ChaoGo/topic"
 	_ "github.com/go-sql-driver/mysql"
 	"ChaoGo/knowledge"
-// 	"ChaoGo/db"
+	"ChaoGo/db"
 	"ChaoGo/user"
 	"ChaoGo/middleware"
 	"github.com/gorilla/context"
 )
 
-// var store = db.Store
+var store = db.Store
 
 type CommonParams struct {
 	Topic []topic.Topic
