@@ -54,13 +54,13 @@ func main() {
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
   
-	
-	if err := http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps))); err != nil {
-    		panic(err)
-  	}
-// 	go http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
+	// must use sudo to run this file because of the permission of port 80
+// 	if err := http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps))); err != nil {
+//     		panic(err)
+//   	}
+ 	go http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
 
-// 	http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
+ 	http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 
 }
 func checkErr(e error) {
