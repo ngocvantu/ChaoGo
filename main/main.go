@@ -21,8 +21,8 @@ type CommonParams struct {
 
 
 func IndexController(w http.ResponseWriter, r *http.Request){
-	session, _ := store.Get(r, "session-name")
-
+	session, e := store.Get(r, "session-name")
+	checkErr(e)
 	var t, err = template.ParseFiles("index.html")
 	commonParam := &CommonParams{Title:"index"}
 	commonParam.Topic,_ = topic.GetTopics("")
@@ -53,14 +53,19 @@ func main() {
 	http.HandleFunc("/deleteknowledge", middleware.CheckLogin(knowledge.Deleteknowledge))
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
+  
+	// must use sudo to run this file because of the permission of port 80
+// 	if err := http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps))); err != nil {
+//     		panic(err)
+//   	}
+ 	go http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
 
-	go http.ListenAndServe(":80", context.ClearHandler(http.HandlerFunc(redirectToHttps)))
-
-	http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
+ 	http.ListenAndServeTLS(":443", "server.crt", "server.key",  context.ClearHandler(http.DefaultServeMux))
 
 }
 func checkErr(e error) {
 	if e != nil {
-		panic(e)
+		panic(e) 
+		
 	}
 }
